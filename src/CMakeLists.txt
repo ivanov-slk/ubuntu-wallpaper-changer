@@ -1,1 +1,1 @@
-add_library(src check_tests.cpp)
+add_library(src systemcommand.cpp)
