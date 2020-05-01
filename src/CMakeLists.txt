@@ -1,0 +1,1 @@
+add_library(src check_tests.cpp)

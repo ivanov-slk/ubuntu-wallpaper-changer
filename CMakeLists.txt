@@ -1,16 +1,22 @@
 cmake_minimum_required(VERSION 3.1)
-project(UbuntuWallpaperChanger VERSION 0.0.1)
+project(UbuntuWallpaperChanger, VERSION 0.0.1)
 
-configure_file(UbuntuWallpaperChangerConfig.h.in UbuntuWallpaperChanger.h)
+configure_file(ubuntu_wallpaper_changer_config.h.in ubuntu_wallpaper_changer.h)
  
 set(CMAKE_CXX_STANDARD 17)
 
-# Locate GTest
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
 # Include application entrypoint
-add_executable(UbuntuWallpaperChanger main.cpp)
+add_executable(ubuntu_wallpaper_changer main.cpp)
 
-target_include_directories(UbuntuWallpaperChanger PUBLIC
-                           "${PROJECT_BINARY_DIR}")
+# Include subdirectories
+add_subdirectory(src)
+list(APPEND EXTRA_LIBS src)
+list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/src")
+
+add_subdirectory(test)
+
+target_link_libraries(ubuntu_wallpaper_changer PUBLIC ${EXTRA_LIBS})
+
+target_include_directories(ubuntu_wallpaper_changer PUBLIC
+                           "${PROJECT_BINARY_DIR}"
+                           "${EXTRA_INCLUDES}")

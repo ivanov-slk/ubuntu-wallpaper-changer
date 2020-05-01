@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <string>
 
+#include <check_tests.cpp>
+
 using namespace std;
 int main()
 {
@@ -13,7 +15,7 @@ int main()
     for (int i = 0; i < 100; i++)
     {
         command = template_command + base_directory + to_string(i) + ".png\"";
-        cout << command << '\n';
+        cout << testable() << '\n';
         // system(command.c_str());
         // sleep(5);
     }

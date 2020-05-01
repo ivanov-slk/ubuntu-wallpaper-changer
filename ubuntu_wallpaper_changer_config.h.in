@@ -1,0 +1,4 @@
+// Options and settings
+
+#define ubuntu_wallpaper_changer_VERSION_MAJOR @ubuntu_wallpaper_changer_VERSION_MAJOR @
+#define ubuntu_wallpaper_changer_VERSION_MINOR @ubuntu_wallpaper_changer_VERSION_MINOR @
