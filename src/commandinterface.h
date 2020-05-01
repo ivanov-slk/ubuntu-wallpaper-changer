@@ -3,6 +3,6 @@
 class CommandInterface
 {
 public:
-    virtual ~CommandInterface(){};
-    virtual std::string execute() = 0;
+    virtual ~CommandInterface() = default;
+    virtual void execute() = 0;
 };

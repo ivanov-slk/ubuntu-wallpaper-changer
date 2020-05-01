@@ -9,7 +9,8 @@ using namespace std;
 int main()
 {
     SystemCommand system_command{"/home/slav/Изображения/Wallpapers/1 (2).jpg"};
-    cout << system_command.execute() << '\n';
+    system_command.execute();
+    cout << system_command.get_command_line() << '\n';
     // string template_command = "gsettings set org.gnome.desktop.background picture-uri file://";
     // string base_directory = "/home/slav/Изображения/Бележки/O'Pyle, J., Karynch, M. - Find out anything from anyone, anytime/";
 
