@@ -1,5 +1,5 @@
-#include "../src/systemcommand.cpp"
 #include <gtest/gtest.h>
+#include "../src/systemcommand.cpp"
 
 TEST(SystemCommandTests, ReturnsEmpty)
 {
