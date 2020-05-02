@@ -7,12 +7,12 @@ class SystemCommand : public CommandInterface
 {
 private:
     string filename;
-    string command_template = "gsettings set org.gnome.desktop.background picture-uri ";
+    string command_template;
     string command_line;
 
 public:
     SystemCommand() = default;
-    SystemCommand(string filename) : filename(filename){};
+    SystemCommand(string filename, string command_template) : filename(filename), command_template(command_template){};
     void execute() override
     {
         command_line = command_template + "\"file://" + filename + "\"";
