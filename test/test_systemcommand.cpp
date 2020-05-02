@@ -8,7 +8,7 @@ TEST(SystemCommandTests, ReturnsEmpty)
     ASSERT_EQ("", testable.get_command_line());
 }
 
-TEST(SystemCommandTests, ReturnsMock)
+TEST(SystemCommandTests, ReturnsCommand1)
 {
     SystemCommand testable{"execute ", "this"};
     testable.execute();
@@ -16,7 +16,7 @@ TEST(SystemCommandTests, ReturnsMock)
     ASSERT_EQ("execute this", testable.get_command_line());
 }
 
-TEST(SystemCommandTests, ReturnsCommand)
+TEST(SystemCommandTests, ReturnsCommand2)
 {
     SystemCommand testable{"gsettings set org.gnome.desktop.background picture-uri \"file://",
                            "/this/path/does/not/exist/1 (2).jpg\""};
