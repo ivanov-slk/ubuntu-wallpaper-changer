@@ -51,7 +51,7 @@ fi
 # Get the base directory of the hook file
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo ${DIR}======================
-# cd "${DIR}/build"
-# cmake ..
-# make
-# test/run_tests
+cd "${DIR}/build"
+cmake ..
+make
+test/run_tests
