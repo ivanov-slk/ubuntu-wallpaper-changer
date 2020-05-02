@@ -48,10 +48,11 @@ fi
 # # If there are whitespace errors, print the offending file names and fail.
 # exec git diff-index --check --cached $against --
 
-# Get the base directory of the hook file
+echo "PRE-COMMIT HOOK: Starting..."
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo ${DIR}======================
-cd "${DIR}/build"
-cmake ..
-make
-test/run_tests
+cd ${DIR}/.git-hooks
+echo "PRE-COMMIT HOOK: in "$(pwd)
+bash run_build.sh
+build_code=$?
+echo "PRE-COMMIT HOOK: exit code is "${build_code}
+exit ${build_code} # explicit
