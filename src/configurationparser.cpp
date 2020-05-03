@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <string>
 #include <filesystem>
 #include <fstream>
@@ -38,9 +39,14 @@ private:
         {
             string key;
             string value;
-            while (config_file >> key >> value)
+            string line;
+            while (config_file.good())
             {
-                params[key] = value; // input them into the map
+                getline(config_file, line);
+                replace(line.begin(), line.end(), '=', ' ');
+                istringstream ss(line);
+                ss >> key >> value;
+                params[key] = value;
             }
             config_file.close();
         }
