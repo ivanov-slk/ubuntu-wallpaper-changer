@@ -57,7 +57,7 @@ private:
     FolderConfiguration parse_config_file()
     {
         FolderConfiguration folder_config;
-        folder_config.path = params["path"];
+        folder_config.path = filesystem::path(params["path"]);
         return folder_config;
     };
 
