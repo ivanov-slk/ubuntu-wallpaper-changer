@@ -14,5 +14,14 @@ public:
     /**
      * Returns an object representing the parsed configuration
      */
-    virtual void create_configuration();
+    virtual FolderConfiguration create_configuration();
+};
+
+/**
+ * The structure represents a folder path with some
+ * pertinent properties.
+ */
+struct FolderConfiguration
+{
+    string path;
 };
