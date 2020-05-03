@@ -8,8 +8,9 @@ public:
 
     /**
      * Parses the configuration file.
+     * @param string config_path - the path to the configuration file.
      */
-    virtual void read_config_file();
+    virtual void read_config_file(string config_path);
 
     /**
      * Returns an object representing the parsed configuration.
