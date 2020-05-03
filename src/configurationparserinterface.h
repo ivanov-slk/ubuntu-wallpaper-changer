@@ -12,7 +12,8 @@ public:
     virtual void read_config_file();
 
     /**
-     * Returns an object representing the parsed configuration
+     * Returns an object representing the parsed configuration.
+     * @return FolderConfiguration
      */
     virtual FolderConfiguration create_configuration();
 };
