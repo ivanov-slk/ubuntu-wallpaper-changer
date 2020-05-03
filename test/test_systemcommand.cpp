@@ -23,9 +23,3 @@ TEST(SystemCommandTests, ReturnsCommand2)
     testable.execute();
     ASSERT_EQ("gsettings set org.gnome.desktop.background picture-uri \"file:///this/path/does/not/exist/1 (2).jpg\"", testable.get_command_line());
 }
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

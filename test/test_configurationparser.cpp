@@ -1,16 +1,16 @@
 #include <gtest/gtest.h>
 #include "../src/configurationparser.cpp"
 
-TEST(ConfigurationParserTests, ReturnsPath)
+TEST(ConfigurationParserTests, ReturnsExceptionOnNonexistentPath)
 {
-    ConfigurationParser testable;
-    testable.read_config_file();
-    FolderConfiguration folder_config = testable.create_configuration();
-    ASSERT_EQ("/nonexistent/path", folder_config.path);
+    ConfigurationParser testable{"nonexistent/path"};
+    ASSERT_THROW(testable.create_configuration(), FileIOException);
 }
 
-int main(int argc, char **argv)
+TEST(ConfigurationParserTests, ReturnsCorrectPath)
 {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    ConfigurationParser testable{"../test/resources/basic_config.cfg"}; // assumes we are in build/
+    FolderConfiguration folder_config = testable.create_configuration();
+    cout << folder_config.path;
+    // ASSERT_EQ(0, std::filesystem::path{"this/does/not/exist"}.compare(folder_config.path));
 }
