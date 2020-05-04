@@ -10,7 +10,7 @@ private:
 
 public:
     FilePicker(const std::vector<std::filesystem::path> &path_vector) : path_vector(path_vector){};
-    std::vector<std::filesystem::path> pick_random_path()
+    std::filesystem::path pick_random_path()
     {
         std::vector<std::filesystem::path> out_path;
         std::sample(
@@ -19,6 +19,6 @@ public:
             std::back_inserter(out_path),
             1,
             std::mt19937{std::random_device{}()});
-        return out_path;
+        return out_path[0];
     }
 };
