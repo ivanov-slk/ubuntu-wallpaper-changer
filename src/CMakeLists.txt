@@ -1,1 +1,1 @@
-add_library(src systemcommand.cpp configurationparser.cpp)
+add_library(src changecommand.cpp configurationparser.cpp)

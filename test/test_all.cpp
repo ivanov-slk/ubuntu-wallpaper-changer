@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "test_configurationparser.cpp"
-#include "test_systemcommand.cpp"
+#include "test_changecommand.cpp"
 
 // TODO: this is probably not the best way to run the tests... consider refactoring.
 
