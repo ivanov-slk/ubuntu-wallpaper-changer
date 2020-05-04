@@ -1,0 +1,25 @@
+#include <gtest/gtest.h>
+#include "../src/filepicker.cpp"
+
+TEST(FilePickerTests, ReturnRandomFromMany)
+{
+    std::vector<std::filesystem::path> test_paths{
+        "path/test/first",
+        "path/test/second",
+        "path/test/third"};
+    FilePicker testable{test_paths};
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << testable.pick_random_path()[0] << '\n';
+    }
+    std::filesystem::path result = testable.pick_random_path()[0];
+    ASSERT_TRUE(std::find(test_paths.begin(), test_paths.end(), result) != test_paths.end());
+}
+
+TEST(FilePickerTests, ReturnRandomFromOne)
+{
+    std::vector<std::filesystem::path> test_paths{"path/test/first"};
+    FilePicker testable{test_paths};
+    std::filesystem::path result = testable.pick_random_path()[0];
+    ASSERT_EQ(std::filesystem::path{"path/test/first"}, result);
+}
