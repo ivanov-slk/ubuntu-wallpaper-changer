@@ -8,10 +8,6 @@ TEST(FilePickerTests, ReturnRandomFromMany)
         "path/test/second",
         "path/test/third"};
     FilePicker testable{test_paths};
-    for (int i = 0; i < 10; i++) // kind of visual testing...
-    {
-        std::cout << testable.pick_random_path() << '\n';
-    }
     std::filesystem::path result = testable.pick_random_path();
     ASSERT_TRUE(std::find(test_paths.begin(), test_paths.end(), result) != test_paths.end());
 }
