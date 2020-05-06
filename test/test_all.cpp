@@ -4,6 +4,7 @@
 #include "test_changecommand.cpp"
 #include "test_filepicker.cpp"
 #include "test_directory.cpp"
+#include "test_uniformstrategy.cpp"
 
 // TODO: this is probably not the best way to run the tests... consider refactoring.
 
