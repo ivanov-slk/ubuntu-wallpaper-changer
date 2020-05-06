@@ -14,6 +14,8 @@ private:
 public:
     Directory(std::filesystem::path path) : path(path){};
 
+    std::filesystem::path get_root_path() { return path; }
+
     /**
      * Get all files in the directory.
      */

@@ -1,6 +1,14 @@
 #include <gtest/gtest.h>
 #include "../src/directory.cpp"
 
+TEST(DirectoryTests, ReturnsRootPath)
+{
+    Directory testable{"../test/resources/dir_tests"}; // assumes we are in build/
+    std::filesystem::path result = testable.get_root_path();
+    std::filesystem::path correct = std::filesystem::path("../test/resources/dir_tests");
+    ASSERT_TRUE(result == correct);
+}
+
 TEST(DirectoryTests, ReturnsFiles)
 {
     Directory testable{"../test/resources/dir_tests"}; // assumes we are in build/
