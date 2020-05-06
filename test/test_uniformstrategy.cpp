@@ -24,10 +24,6 @@ TEST(UniformStrategyTests, ReturnsAllFiles)
         "../test/resources/dir_tests/test_dir2/random1.png"};
     UniformStrategy testable;
     std::vector<std::filesystem::path> result = testable.execute(Directory("../test/resources/dir_tests"));
-    for (auto &p : result)
-    {
-        std::cout << p << '\n';
-    }
     ASSERT_TRUE(result == correct);
 }
 
