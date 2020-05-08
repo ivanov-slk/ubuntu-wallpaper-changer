@@ -1,3 +1,4 @@
+#pragma once
 #include "strategyinterface.h"
 #include "directory.cpp"
 
@@ -8,7 +9,7 @@
 class UniformStrategy : public StrategyInterface
 {
 public:
-    std::vector<std::filesystem::path> execute(Directory root_dir) override
+    std::vector<std::filesystem::path> execute(Directory root_dir) const override
     {
         std::vector<std::filesystem::path> all_files = root_dir.get_files();
         std::vector<std::filesystem::path> all_subdirs = root_dir.get_subdirs();
