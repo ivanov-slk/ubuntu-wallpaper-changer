@@ -11,5 +11,5 @@ TEST(AppFacadeTests, ReturnCorrectCommand)
 
     AppFacade testable{"../test/resources/test_config.cfg"};
     std::string result = testable.change_wallpaper();
-    // ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
+    ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
 }
