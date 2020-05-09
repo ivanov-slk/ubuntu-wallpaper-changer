@@ -16,7 +16,7 @@ public:
     ChangeCommand(string command_template, string filename) : command_template(command_template), filename(filename){};
     void execute() override
     {
-        command_line = command_template + filename;
+        command_line = command_template + "\"file://" + filename + "\"";
     };
     string get_command_line() { return command_line; };
 };
