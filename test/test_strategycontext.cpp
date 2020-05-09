@@ -24,8 +24,10 @@ TEST(StrategyContextTests, UniformReturnsAllFiles)
         "../test/resources/dir_tests/test_dir2/random4.png",
         "../test/resources/dir_tests/test_dir2/random1.png"};
     StrategyContext context;
-    context.set_strategy(new UniformStrategy);
-    std::vector<std::filesystem::path> result = context.execute_strategy(Directory{"../test/resources/dir_tests"});
+    auto strategy = std::make_unique<UniformStrategy>();
+    Directory test_dir{"../test/resources/dir_tests"};
+    context.set_strategy(std::move(strategy));
+    std::vector<std::filesystem::path> result = context.execute_strategy(test_dir);
     ASSERT_TRUE(result == correct);
 }
 
@@ -33,7 +35,8 @@ TEST(StrategyContextTests, UniformReturnsEmpty)
 {
     std::vector<std::filesystem::path> correct;
     StrategyContext context;
-    context.set_strategy(new UniformStrategy);
+    auto strategy = std::make_unique<UniformStrategy>();
+    context.set_strategy(std::move(strategy));
     std::vector<std::filesystem::path> result = context.execute_strategy(Directory{"../test/resources/dir_tests/test_dir2/empty_dir"});
     ASSERT_TRUE(result == correct);
 }
