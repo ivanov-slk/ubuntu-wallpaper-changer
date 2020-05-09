@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-// #include "test_appfacade.cpp"
+#include "test_appfacade.cpp"
 #include "test_configurationparser.cpp"
 #include "test_changecommand.cpp"
 #include "test_filepicker.cpp"
