@@ -5,6 +5,7 @@
 struct FolderConfiguration
 {
     std::filesystem::path path;
+    int seconds_before_change;
 };
 
 /**
@@ -14,6 +15,7 @@ class ConfigurationParserInterface
 {
 public:
     virtual ~ConfigurationParserInterface() = default;
+
     /**
      * Returns an object representing the parsed configuration.
      * @return FolderConfiguration

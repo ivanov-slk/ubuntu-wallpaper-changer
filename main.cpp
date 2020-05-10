@@ -1,6 +1,3 @@
-#include <iostream>
-#include <unistd.h>
-#include <string>
 #include <csignal>
 
 #include <appfacade.cpp>

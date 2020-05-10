@@ -1,4 +1,5 @@
 #include <string>
+#include <unistd.h>
 
 #include "changecommand.cpp"
 #include "configurationparser.cpp"
@@ -63,7 +64,6 @@ public:
                               wallpaper_path};
         command.execute();
         string command_line = command.get_command_line();
-        // execute command (should the actual system() call be here or in main()?)
         return command_line;
     }
 
@@ -74,7 +74,7 @@ public:
             string command_line = change_wallpaper();
             cout << command_line << '\n';
             system(command_line.c_str());
-            sleep(30);
+            sleep(config.seconds_before_change);
         }
     }
 };
