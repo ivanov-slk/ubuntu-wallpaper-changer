@@ -10,7 +10,7 @@ TEST(AppFacadeTests, ReturnCorrectCommand)
         "gsettings set org.gnome.desktop.background picture-uri \"file://../test/resources/dir_tests/test_dir2/random4.png\""};
 
     AppFacade testable{"../test/resources/test_config.cfg"};
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++) // kind of redundant
     {
         std::string result = testable.change_wallpaper();
         ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
