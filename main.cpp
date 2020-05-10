@@ -19,7 +19,7 @@ int main()
 {
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
-    AppFacade wallpaper_changer{"test/resources/real_config.cfg"};
+    AppFacade wallpaper_changer{"./config.cfg"};
     while (true)
     {
         string command_line = wallpaper_changer.change_wallpaper();

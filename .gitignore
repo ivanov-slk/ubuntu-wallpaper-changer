@@ -3,6 +3,7 @@
 
 # Build
 build
+release
 
 # Prerequisites
 *.d
