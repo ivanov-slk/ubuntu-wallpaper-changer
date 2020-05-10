@@ -16,6 +16,8 @@ class AppFacade
 private:
     std::string config_path;
     FolderConfiguration config;
+    StrategyContext context;
+    std::unique_ptr<StrategyInterface> strategy;
 
 public:
     AppFacade(const std::string &config_path) : config_path(config_path)
@@ -23,6 +25,10 @@ public:
         // parse configuration
         ConfigurationParser parser{config_path};
         config = parser.create_configuration();
+
+        // set up strategy
+        strategy = std::make_unique<UniformStrategy>();
+        context.set_strategy(std::move(strategy));
     };
 
     /**
@@ -33,12 +39,8 @@ public:
      */
     std::vector<std::filesystem::path> get_dirfiles()
     {
-        // set up strategy and get file vector
-        StrategyContext context;
-        auto strategy = std::make_unique<UniformStrategy>();
         Directory root_dir{config.path};
         std::vector<std::filesystem::path> files_vector;
-        context.set_strategy(std::move(strategy));
         files_vector = context.execute_strategy(root_dir);
         return files_vector;
     }
