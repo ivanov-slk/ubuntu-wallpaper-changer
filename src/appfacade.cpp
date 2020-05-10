@@ -14,10 +14,22 @@ class AppFacade
 {
 private:
     std::string config_path;
+    FolderConfiguration config;
 
 public:
-    AppFacade(const std::string &config_path) : config_path(config_path){};
+    AppFacade(const std::string &config_path) : config_path(config_path)
+    {
+        // parse configuration
+        ConfigurationParser parser{config_path};
+        config = parser.create_configuration();
+    };
 
+    /**
+     * Execute the strategy-related directory traversal.
+     * @param Folderconfiguration - the parsed configuration.
+     * 
+     * @returns std::vector<std::filesystem::path> - a (potentially empty) vector of paths
+     */
     std::vector<std::filesystem::path> get_dirfiles(const FolderConfiguration &config)
     {
         // set up strategy and get file vector
@@ -33,13 +45,11 @@ public:
     /**
      * Organizes and executes the process of generating command line for 
      * changing wallpapers, using all other classes.
+     * 
+     * @returns std::string 
      */
     std::string change_wallpaper()
     {
-        // parse configuration
-        ConfigurationParser parser{config_path};
-        FolderConfiguration config = parser.create_configuration();
-
         // traverse directories and get files
         std::vector<std::filesystem::path> files_vector;
         files_vector = get_dirfiles(config);
