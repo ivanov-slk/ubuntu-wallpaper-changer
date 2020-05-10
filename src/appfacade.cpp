@@ -30,7 +30,7 @@ public:
      * 
      * @returns std::vector<std::filesystem::path> - a (potentially empty) vector of paths
      */
-    std::vector<std::filesystem::path> get_dirfiles(const FolderConfiguration &config)
+    std::vector<std::filesystem::path> get_dirfiles()
     {
         // set up strategy and get file vector
         StrategyContext context;
@@ -52,7 +52,7 @@ public:
     {
         // traverse directories and get files
         std::vector<std::filesystem::path> files_vector;
-        files_vector = get_dirfiles(config);
+        files_vector = get_dirfiles();
 
         // set up file picker
         FilePicker picker{files_vector};
@@ -65,5 +65,16 @@ public:
         string command_line = command.get_command_line();
         // execute command (should the actual system() call be here or in main()?)
         return command_line;
+    }
+
+    void start()
+    {
+        while (true)
+        {
+            string command_line = change_wallpaper();
+            cout << command_line << '\n';
+            system(command_line.c_str());
+            sleep(30);
+        }
     }
 };

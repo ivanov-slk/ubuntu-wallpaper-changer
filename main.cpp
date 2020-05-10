@@ -20,12 +20,6 @@ int main()
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
     AppFacade wallpaper_changer{"./config.cfg"};
-    while (true)
-    {
-        string command_line = wallpaper_changer.change_wallpaper();
-        cout << command_line << '\n';
-        system(command_line.c_str());
-        sleep(30);
-    }
+    wallpaper_changer.start();
     return 0;
 }
