@@ -43,10 +43,6 @@ public:
         // traverse directories and get files
         std::vector<std::filesystem::path> files_vector;
         files_vector = get_dirfiles(config);
-        for (auto &p : files_vector)
-        {
-            std::cout << p << '\n';
-        }
 
         // set up file picker
         FilePicker picker{files_vector};

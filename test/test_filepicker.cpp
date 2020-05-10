@@ -19,3 +19,12 @@ TEST(FilePickerTests, ReturnRandomFromOne)
     std::filesystem::path result = testable.pick_random_path();
     ASSERT_EQ(std::filesystem::path{"path/test/first"}, result);
 }
+
+TEST(FilePickerTests, ReturnEmptyStringFromEmptyVector)
+{
+    std::vector<std::filesystem::path> test_paths;
+    FilePicker testable{test_paths};
+    std::filesystem::path result = testable.pick_random_path();
+    std::filesystem::path correct;
+    ASSERT_EQ(correct, result);
+}
