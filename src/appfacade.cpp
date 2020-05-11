@@ -79,4 +79,21 @@ public:
             sleep(config.seconds_before_change);
         }
     }
+
+    /**
+     * Logs the executed command line.
+     * 
+     * @param const string& command_line
+     */
+    void log(const string &command_line)
+    {
+        /**
+         * Details:
+         * - set up a Logger object, which has a (constant) output file, opens it on initialization and
+         * closes it on destruction (or exception - use ofstream for this). Each time it creates "blank"
+         * file on initialization. Then it writes to it each command line. 
+         * - use this function only to call the appropriate method in the logger object;
+         * - add a test in appfacade (check where the log file path will be)
+         */
+    }
 };
