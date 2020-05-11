@@ -5,7 +5,7 @@ TEST(LoggerTests, LogsCorrectly)
 {
     { // in a separate scope to allow for the output file to be closed
         // initialize logger
-        Logger testable = Logger("../test/resources/test_log.txt");
+        Logger testable{"../test/resources/test_log.txt"};
 
         // write a couple of lines
         testable.log("this is line 1");

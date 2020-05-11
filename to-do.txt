@@ -1,4 +1,3 @@
-1. Logger - log each wallpaper that is being set (at the point of setting);
-2. Weighted strategy - probabilistically traverse sub-folders and return all files in a folder;
-3. Filter - remove files that are not pictures;
-4. Folder seconds - allow setting seconds_before_change for desired folders, otherwise default to global setting;
+1. Weighted strategy - probabilistically traverse sub-folders and return all files in a folder;
+2. Filter - remove files that are not pictures;
+3. Folder seconds - allow setting seconds_before_change for desired folders, otherwise default to global setting;

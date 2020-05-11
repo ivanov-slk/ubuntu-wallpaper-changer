@@ -6,6 +6,7 @@
 #include "filepicker.cpp"
 #include "strategycontext.cpp"
 #include "uniformstrategy.cpp"
+#include "logger.cpp"
 
 /**
  * Acts as sort of a "facade" for the other classes. Provides a simple
@@ -17,6 +18,7 @@ private:
     std::string config_path;
     FolderConfiguration config;
     StrategyContext context;
+    Logger logger{"./log.txt"};
     std::unique_ptr<StrategyInterface> strategy;
 
 public:
@@ -69,12 +71,15 @@ public:
         return command_line;
     }
 
+    /**
+     * Starts the application.
+     */
     void start()
     {
         while (true)
         {
             string command_line = change_wallpaper();
-            cout << command_line << '\n';
+            logger.log(command_line);
             system(command_line.c_str());
             sleep(config.seconds_before_change);
         }
@@ -87,13 +92,6 @@ public:
      */
     void log(const string &command_line)
     {
-        /**
-         * Details:
-         * - set up a Logger object, which has a (constant) output file, opens it on initialization and
-         * closes it on destruction (or exception - use ofstream for this). Each time it creates "blank"
-         * file on initialization. Then it writes to it each command line. 
-         * - use this function only to call the appropriate method in the logger object;
-         * - add a test in appfacade (check where the log file path will be)
-         */
+        logger.log(command_line);
     }
 };
