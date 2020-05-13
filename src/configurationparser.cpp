@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <filesystem>
 #include <fstream>
 #include <map>
@@ -19,7 +20,6 @@ class ConfigurationParser : public ConfigurationParserInterface
 private:
     const std::string config_file_path;
     const std::string config_in;
-    std::map<std::string, std::string> params;
     FolderConfiguration config_parsed;
 
     /**
@@ -27,6 +27,7 @@ private:
      * 
      * @param std::string rhs - the right hand side of the "=" 
      * @returns std::string
+     * @throw ConfigurationParsingException
      */
     std::string parse_root_path(std::string rhs)
     {
@@ -44,6 +45,7 @@ private:
      * 
      * @param std::string rhs - the right hand side of the "="
      * @returns int
+     * @throw ConfigurationParsingException
      */
     int parse_int(std::string rhs)
     {
@@ -60,35 +62,51 @@ private:
     /**
      * @brief Parses the directory exclusion list.
      * 
-     * @param std::string input_line
+     * @param std::string_view rhs
      * @returns std::vector<std::string>
      */
-    std::vector<std::string> parse_dir_exclusions(std::string input_line)
+    std::vector<std::string> parse_dir_exclusions(std::string rhs)
     {
-        // separate by comma
-
-        // put into a vector
+        replace(rhs.begin(), rhs.end(), ',', ' ');
+        std::istringstream ss(rhs);
+        std::vector<std::string> dir_exclusions{
+            std::istream_iterator<std::string>{ss},
+            std::istream_iterator<std::string>{}};
+        return dir_exclusions;
     }
 
     /**
      * @brief Parses string:integer key-value pairs.
      * 
-     * @param std::string input_line
+     * @param std::string_view rhs
      * @returns std::map<std::string, int>
      * 
      * Expects the key-value pairs (e.g. the folder:priority pairs) be
      * separated by comma.
      */
-    std::map<std::string, int> parse_string_int_pairs(std::string input_line) {}
-
-    /**
-     * Validates the configuration inputs.
-     * @param std::string key - the parameter's name
-     * @param std::string value - the parameter's value
-     * 
-     * @returns bool - true if the parameter key-value pair is valid.
-     * @throw ConfigurationParsingException - if wrong input is detected.
-     */
+    std::vector<std::pair<std::string, int>> parse_string_int_pairs(std::string rhs)
+    {
+        std::vector<std::pair<std::string, int>> vec_pairs;
+        replace(rhs.begin(), rhs.end(), ',', ' ');
+        std::istringstream ss(rhs);
+        std::string token;
+        while (getline(ss, token, ' '))
+        {
+            std::string pair_first;
+            std::string pair_second;
+            int pair_second_parsed;
+            replace(token.begin(), token.end(), ':', ' ');
+            std::istringstream token_ss(token);
+            token_ss >> pair_first >> pair_second;
+            pair_second_parsed = parse_int(pair_second);
+            std::pair<std::string, int> vec_element{pair_first, pair_second_parsed};
+            vec_pairs.push_back(vec_element);
+        }
+        std::sort(vec_pairs.begin(),
+                  vec_pairs.end(),
+                  [](auto &left, auto &right) { return left.second < right.second; });
+        return vec_pairs;
+    }
 
     /**
      * @brief Parses a line given its key's name.
@@ -105,6 +123,18 @@ private:
         if (key == "seconds_before_change")
         {
             config_parsed.seconds_before_change = parse_int(value);
+        }
+        if (key == "directory_exclusions")
+        {
+            config_parsed.directory_exclusions = parse_dir_exclusions(value);
+        }
+        if (key == "directory_priorities")
+        {
+            config_parsed.directory_priorities = parse_string_int_pairs(value);
+        }
+        if (key == "directory_seconds")
+        {
+            config_parsed.directory_seconds = parse_string_int_pairs(value);
         }
     };
 
