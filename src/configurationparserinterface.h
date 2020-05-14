@@ -7,6 +7,7 @@ struct FolderConfiguration
     std::filesystem::path path;
     int seconds_before_change;
     std::vector<std::string> directory_exclusions;
+    std::vector<std::string> file_allowed_extensions;
     std::vector<std::pair<std::string, int>> directory_priorities;
     std::vector<std::pair<std::string, int>> directory_seconds;
 };

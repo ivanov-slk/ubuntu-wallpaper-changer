@@ -65,7 +65,7 @@ private:
      * @param std::string_view rhs
      * @returns std::vector<std::string>
      */
-    std::vector<std::string> parse_dir_exclusions(std::string rhs)
+    std::vector<std::string> parse_string_list(std::string rhs)
     {
         replace(rhs.begin(), rhs.end(), ',', ' ');
         std::istringstream ss(rhs);
@@ -79,7 +79,10 @@ private:
      * @brief Parses string:integer key-value pairs.
      * 
      * @param std::string_view rhs
-     * @returns std::map<std::string, int>
+     * @returns std::vector<std::pair<std::string, int>> A vector of pairs,
+     * where the first element is a directory name and the second element is
+     * some directory property (seconds or priority up to this point). The
+     * vector is sorted by the second elements in the pairs.
      * 
      * Expects the key-value pairs (e.g. the folder:priority pairs) be
      * separated by comma.
@@ -126,7 +129,11 @@ private:
         }
         if (key == "directory_exclusions")
         {
-            config_parsed.directory_exclusions = parse_dir_exclusions(value);
+            config_parsed.directory_exclusions = parse_string_list(value);
+        }
+        if (key == "file_allowed_extensions")
+        {
+            config_parsed.file_allowed_extensions = parse_string_list(value);
         }
         if (key == "directory_priorities")
         {

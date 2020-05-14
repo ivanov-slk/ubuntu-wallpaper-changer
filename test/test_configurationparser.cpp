@@ -33,6 +33,14 @@ TEST(ConfigurationParserTests, ReturnsCorrectExclusions)
     ASSERT_EQ(folder_config.directory_exclusions, correct);
 }
 
+TEST(ConfigurationParserTests, ReturnsCorrectExtensions)
+{
+    ConfigurationParser testable{"../test/resources/extensions_config.cfg"}; // assumes we are in build/
+    FolderConfiguration folder_config = testable.create_configuration();
+    std::vector<std::string> correct{".txt", ".png", ".jpeg"};
+    ASSERT_EQ(folder_config.file_allowed_extensions, correct);
+}
+
 TEST(ConfigurationParserTests, ReturnsCorrectPriorities)
 {
     ConfigurationParser testable{"../test/resources/priorities_config.cfg"}; // assumes we are in build/
