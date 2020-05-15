@@ -1,22 +1,21 @@
 #pragma once
-#include <string>
 #include "commandinterface.h"
-
-using namespace std;
 
 class ChangeCommand : public CommandInterface
 {
 private:
-    string filename;
-    string command_template;
-    string command_line;
+    std::string filename;
+    std::string command_template;
+    std::string command_line;
+    ChangeParameters change_params;
 
 public:
     ChangeCommand() = default;
-    ChangeCommand(string command_template, string filename) : command_template(command_template), filename(filename){};
+    ChangeCommand(const std::string &command_template, const std::string &filename) : command_template(command_template), filename(filename){};
     void execute() override
     {
         command_line = command_template + "\"file://" + filename + "\"";
+        change_params.command_line = command_line;
     };
-    string get_command_line() { return command_line; };
+    ChangeParameters get_change() { return change_params; };
 };

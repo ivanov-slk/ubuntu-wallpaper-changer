@@ -12,8 +12,8 @@ TEST(AppFacadeTests, ReturnCorrectCommand)
     AppFacade testable{"../test/resources/test_config.cfg"};
     for (int i = 0; i < 3; i++) // kind of redundant
     {
-        std::string result = testable.change_wallpaper();
-        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result.command_line) != correct_commands.end());
     }
 }
 
@@ -28,8 +28,8 @@ TEST(AppFacadeTests, ReturnCorrectCommandExclusions)
     AppFacade testable{"../test/resources/appfacade_exclusions_config.cfg"};
     for (int i = 0; i < 3; i++) // kind of redundant
     {
-        std::string result = testable.change_wallpaper();
-        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result.command_line) != correct_commands.end());
     }
 }
 
@@ -42,8 +42,8 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmptyNoAllowedExtensions)
     AppFacade testable{"../test/resources/allowed_extensions_config.cfg"};
     for (int i = 0; i < 3; i++) // kind of redundant
     {
-        std::string result = testable.change_wallpaper();
-        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result.command_line) != correct_commands.end());
     }
 }
 
@@ -56,8 +56,8 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmpty)
     AppFacade testable{"../test/resources/empty_config.cfg"};
     for (int i = 0; i < 3; i++)
     {
-        std::string result = testable.change_wallpaper();
-        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result) != correct_commands.end());
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result.command_line) != correct_commands.end());
     }
 }
 

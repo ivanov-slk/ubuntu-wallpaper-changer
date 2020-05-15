@@ -1,4 +1,3 @@
-#include <string>
 #include <unistd.h>
 
 #include "changecommand.cpp"
@@ -53,7 +52,7 @@ public:
      * 
      * @returns std::string 
      */
-    std::string change_wallpaper()
+    ChangeParameters change_wallpaper()
     {
         // traverse directories and get files
         std::vector<std::filesystem::path> files_vector;
@@ -61,14 +60,14 @@ public:
 
         // set up file picker
         FilePicker picker{files_vector};
-        string wallpaper_path = picker.pick_random_path().string();
+        std::string wallpaper_path = picker.pick_random_path().string();
 
         // set up command
         ChangeCommand command{"gsettings set org.gnome.desktop.background picture-uri ",
                               wallpaper_path};
         command.execute();
-        string command_line = command.get_command_line();
-        return command_line;
+        ChangeParameters params = command.get_change();
+        return params;
     }
 
     /**
@@ -78,19 +77,19 @@ public:
     {
         while (true)
         {
-            string command_line = change_wallpaper();
-            logger.log(command_line);
-            system(command_line.c_str());
-            sleep(config.seconds_before_change);
+            ChangeParameters params = change_wallpaper();
+            logger.log(params.command_line);
+            system(params.command_line.c_str());
+            sleep(params.change_seconds);
         }
     }
 
     /**
      * Logs the executed command line.
      * 
-     * @param const string& command_line
+     * @param const std::string& command_line
      */
-    void log(const string &command_line)
+    void log(const std::string &command_line)
     {
         logger.log(command_line);
     }
