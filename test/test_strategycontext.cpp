@@ -5,9 +5,9 @@
 TEST(StrategyContextTests, UniformReturnsAllFiles)
 {
     std::vector<std::filesystem::path> correct = {
-        "../test/resources/dir_tests/file3.txt",
+        "../test/resources/dir_tests/file3.jpeg",
+        "../test/resources/dir_tests/file2.png",
         "../test/resources/dir_tests/file1.txt",
-        "../test/resources/dir_tests/file2.txt",
         "../test/resources/dir_tests/file4.txt",
         "../test/resources/dir_tests/test_dir3/test_file1.txt",
         "../test/resources/dir_tests/test_dir3/test_file2.txt",
