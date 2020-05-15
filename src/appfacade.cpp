@@ -41,7 +41,7 @@ public:
      */
     std::vector<std::filesystem::path> get_dirfiles()
     {
-        Directory root_dir{config.path};
+        Directory root_dir{config.path, config.directory_exclusions, config.file_allowed_extensions};
         std::vector<std::filesystem::path> files_vector;
         files_vector = context.execute_strategy(root_dir);
         return files_vector;
