@@ -61,6 +61,26 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmpty)
     }
 }
 
+TEST(AppFacadeTests, ReturnCorrectCommandDefaultSeconds)
+{
+    AppFacade testable{"../test/resources/empty_config.cfg"};
+    for (int i = 0; i < 3; i++)
+    {
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_EQ(30, result.change_seconds);
+    }
+}
+
+TEST(AppFacadeTests, ReturnCorrectCommandClosestSecondsParent)
+{
+    AppFacade testable{"../test/resources/appfacade_seconds_config.cfg"};
+    for (int i = 0; i < 3; i++)
+    {
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_EQ(20, result.change_seconds);
+    }
+}
+
 TEST(AppFacadeTests, LogsCorrectly)
 {
     { // in a separate scope to allow for the output file to be closed

@@ -64,7 +64,9 @@ public:
 
         // set up command
         ChangeCommand command{"gsettings set org.gnome.desktop.background picture-uri ",
-                              wallpaper_path};
+                              wallpaper_path,
+                              config.directory_seconds,
+                              config.seconds_before_change};
         command.execute();
         ChangeParameters params = command.get_change();
         return params;
