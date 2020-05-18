@@ -1,2 +1,1 @@
 1. Weighted strategy - probabilistically traverse sub-folders and return all files in a folder;
-2. Folder seconds - allow setting seconds_before_change for desired folders, otherwise default to global setting;
