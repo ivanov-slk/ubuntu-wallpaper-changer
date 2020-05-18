@@ -66,10 +66,10 @@ public:
      * @return std::vector<std::pair<std::string, float>> - a vector of directory-priority pairs,
      * with the priorities summing to 1.
      */
-    std::vector<std::pair<std::string, float>>
-    normalize_priorities(const std::vector<std::pair<std::string, int>> subdirs_with_priorities)
+    std::vector<std::pair<std::filesystem::path, float>>
+    normalize_priorities(const std::vector<std::pair<std::filesystem::path, int>> subdirs_with_priorities)
     {
-        std::vector<std::pair<std::string, float>> normalized_priorities;
+        std::vector<std::pair<std::filesystem::path, float>> normalized_priorities;
         int priority_sum = 0;
         for (auto &element : subdirs_with_priorities)
         {
@@ -79,6 +79,9 @@ public:
         {
             normalized_priorities.push_back({element.first, (float)element.second / (float)priority_sum});
         }
+        std::sort(normalized_priorities.begin(),
+                  normalized_priorities.end(),
+                  [](auto &left, auto &right) { return left.second < right.second; });
         return normalized_priorities;
     }
 

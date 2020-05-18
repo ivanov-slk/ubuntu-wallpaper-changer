@@ -72,6 +72,29 @@ TEST(WeightedStrategyTests, SubdirsSubdirsEmpty)
     ASSERT_TRUE(result == correct);
 }
 
+TEST(WeightedStrategyTests, NormalizationNonEmpty)
+{
+    std::vector<std::pair<std::string, int>> input_dir_priorities;
+    std::vector<std::pair<std::filesystem::path, int>> test_input{
+        {"/path/dir1", 50}, {"/path/dir2", 20}, {"/path/dir3", 30}};
+    std::vector<std::pair<std::filesystem::path, float>> correct{
+        {"/path/dir2", 0.2}, {"/path/dir3", 0.3}, {"/path/dir1", 0.5}};
+    WeightedStrategy testable{input_dir_priorities};
+    std::vector<std::pair<std::filesystem::path, float>> result = testable.normalize_priorities(test_input);
+    ASSERT_TRUE(result == correct);
+}
+
+TEST(WeightedStrategyTests, NormalizationEmpty)
+{
+    std::vector<std::pair<std::string, int>> input_dir_priorities{
+        {"dir1", 1}, {"dir2", 2}, {"dir3", 3}};
+    std::vector<std::pair<std::filesystem::path, float>> correct;
+    std::vector<std::pair<std::filesystem::path, int>> test_input;
+    WeightedStrategy testable{input_dir_priorities};
+    std::vector<std::pair<std::filesystem::path, float>> result = testable.normalize_priorities(test_input);
+    ASSERT_TRUE(result == correct);
+}
+
 // TEST(WeightedStrategyTests, ReturnsAllFiles)
 // {
 //     std::vector<std::filesystem::path> correct = {
