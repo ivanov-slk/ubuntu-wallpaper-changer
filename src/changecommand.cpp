@@ -55,6 +55,13 @@ public:
 
         // get the change seconds
         change_params.change_seconds = calculate_seconds(filename);
+
+        // get the options command line, if needed
+        std::string picture_dir = std::filesystem::path{filename}.parent_path().filename();
+        if (directory_pic_options.count(picture_dir) > 0)
+        {
+            change_params.command_line_options = command_template_options + directory_pic_options.at(picture_dir);
+        }
     };
     ChangeParameters get_change() { return change_params; };
 };
