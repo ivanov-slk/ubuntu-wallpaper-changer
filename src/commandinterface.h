@@ -10,5 +10,6 @@ public:
 struct ChangeParameters
 {
     std::string command_line;
+    std::string command_line_options;
     int change_seconds;
 };

@@ -1,17 +1,19 @@
 #pragma once
 #include <filesystem>
 #include <vector>
-#include <iostream>
+#include <map>
 #include "commandinterface.h"
 
 class ChangeCommand : public CommandInterface
 {
 private:
     std::string filename;
-    std::string command_template;
+    std::string command_template = "gsettings set org.gnome.desktop.background picture-uri ";
+    std::string command_template_options = "gsettings set org.gnome.desktop.background picture-options ";
     std::string command_line;
     std::vector<std::pair<std::string, int>> dir_seconds;
     int default_seconds;
+    std::map<std::string, std::string> directory_pic_options;
     ChangeParameters change_params;
 
     int calculate_seconds(std::string check_path)
@@ -37,14 +39,14 @@ private:
 
 public:
     ChangeCommand() = default;
-    ChangeCommand(const std::string &command_template, const std::string &filename) : command_template(command_template), filename(filename){};
-    ChangeCommand(const std::string &command_template,
-                  const std::string &filename,
+    ChangeCommand(const std::string &filename) : filename(filename){};
+    ChangeCommand(const std::string &filename,
                   const std::vector<std::pair<std::string, int>> dir_seconds,
-                  int default_seconds) : command_template(command_template),
-                                         filename(filename),
-                                         dir_seconds(dir_seconds),
-                                         default_seconds(default_seconds){};
+                  int default_seconds,
+                  std::map<std::string, std::string> dir_pic_options) : filename(filename),
+                                                                        dir_seconds(dir_seconds),
+                                                                        default_seconds(default_seconds),
+                                                                        directory_pic_options(dir_pic_options){};
     void execute() override
     {
         // get the command line

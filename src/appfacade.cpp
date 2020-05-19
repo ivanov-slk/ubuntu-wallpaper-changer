@@ -73,10 +73,10 @@ public:
         std::string wallpaper_path = picker.pick_random_path().string();
 
         // set up command
-        ChangeCommand command{"gsettings set org.gnome.desktop.background picture-uri ",
-                              wallpaper_path,
+        ChangeCommand command{wallpaper_path,
                               config.directory_seconds,
-                              config.seconds_before_change};
+                              config.seconds_before_change,
+                              config.directory_pic_options};
         command.execute();
         ChangeParameters params = command.get_change();
         return params;
