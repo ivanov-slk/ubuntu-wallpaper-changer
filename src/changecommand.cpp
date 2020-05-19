@@ -78,11 +78,9 @@ public:
         change_params.change_seconds = calculate_seconds(filename);
 
         // get the options command line, if needed
-        // std::cout << directory_pic_options["dir_tests"] << '\n';
         std::string pic_option;
         pic_option = command_template_options + extract_picture_options(filename);
         change_params.command_line_options = pic_option;
-        std::cout << "++++++++++++++++++++" << change_params.command_line_options << '\n';
     };
     ChangeParameters get_change() { return change_params; };
 };
