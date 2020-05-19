@@ -17,6 +17,16 @@ private:
 public:
     WeightedStrategy(const std::vector<std::pair<std::filesystem::path, int>> &directory_priorities)
         : directory_priorities(directory_priorities) {}
+    WeightedStrategy(const std::vector<std::pair<std::string, int>> &directory_priorities_input)
+    {
+        // this convertion may be too explicit
+        std::vector<std::pair<std::filesystem::path, int>> converted_priorities;
+        for (auto &dir_pair : directory_priorities)
+        {
+            converted_priorities.push_back({std::filesystem::path{dir_pair.first}, dir_pair.second});
+        }
+        directory_priorities = converted_priorities;
+    }
 
     /**
      * @brief Creates a directory-priority mapping, where the priority for each valid subdirectory

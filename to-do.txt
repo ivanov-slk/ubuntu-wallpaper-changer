@@ -1,1 +1,0 @@
-1. Weighted strategy - probabilistically traverse sub-folders and return all files in a folder;

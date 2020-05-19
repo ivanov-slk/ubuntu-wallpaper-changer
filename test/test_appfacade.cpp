@@ -118,3 +118,17 @@ TEST(AppFacadeTests, LogsCorrectly)
 
     ASSERT_TRUE(test == correct);
 }
+
+TEST(AppFacadeTests, WeightedStrategyReturnsCorrect)
+{
+    std::vector<std::string> correct_commands{
+        "gsettings set org.gnome.desktop.background picture-uri \"file://\"",
+    };
+
+    AppFacade testable{"../test/resources/empty_weighted_config.cfg"};
+    for (int i = 0; i < 3; i++)
+    {
+        ChangeParameters result = testable.change_wallpaper();
+        ASSERT_TRUE(std::find(correct_commands.begin(), correct_commands.end(), result.command_line) != correct_commands.end());
+    }
+}

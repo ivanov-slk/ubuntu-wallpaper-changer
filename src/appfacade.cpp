@@ -5,6 +5,7 @@
 #include "filepicker.cpp"
 #include "strategycontext.cpp"
 #include "uniformstrategy.cpp"
+#include "weightedstrategy.cpp"
 #include "logger.cpp"
 
 /**
@@ -27,9 +28,18 @@ public:
         ConfigurationParser parser{config_path};
         config = parser.create_configuration();
 
-        // set up strategy
-        strategy = std::make_unique<UniformStrategy>();
-        context.set_strategy(std::move(strategy));
+        // set up strategy (uniform strategy is default, although configuration parser throws on invalid policy)
+        if ((config.policy == "uniform") || config.policy.empty())
+        {
+            strategy = std::make_unique<UniformStrategy>();
+            context.set_strategy(std::move(strategy));
+        }
+        else
+        {
+        std:
+            strategy = std::make_unique<WeightedStrategy>(config.directory_priorities);
+            context.set_strategy(std::move(strategy));
+        }
     };
 
     /**
