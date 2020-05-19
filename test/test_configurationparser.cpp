@@ -63,7 +63,7 @@ TEST(ConfigurationParserTests, ReturnsCorrectPolicy)
 {
     ConfigurationParser testable{"../test/resources/policy_config.cfg"}; // assumes we are in build/
     FolderConfiguration folder_config = testable.create_configuration();
-    std::string correct{"weighted"};
+    std::string correct{"uniform"};
     ASSERT_EQ(folder_config.policy, correct);
 }
 
@@ -73,7 +73,7 @@ TEST(ConfigurationParserTests, ReturnsCorrectFull)
     FolderConfiguration folder_config = testable.create_configuration();
     FolderConfiguration correct;
     correct.path = std::filesystem::path{"../test/resources/dir_tests/test_dir2"};
-    correct.policy = "uniform";
+    correct.policy = "weighted";
     correct.seconds_before_change = 30;
     correct.file_allowed_extensions = std::vector<std::string>{".png", ".jpg"};
     correct.directory_exclusions = std::vector<std::string>{"test_dir1", "test_dir3"};
