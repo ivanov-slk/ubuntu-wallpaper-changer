@@ -92,7 +92,7 @@ TEST(ConfigurationParserTests, ReturnsCorrectPictureOptions)
 {
     ConfigurationParser testable{"../test/resources/picture_options_config.cfg"}; // assumes we are in build/
     FolderConfiguration folder_config = testable.create_configuration();
-    std::map<std::string, std::string> correct{{"dir1", "zoom"}, {"dir2", "scaled"}};
+    std::map<std::string, std::string> correct{{"dir1", "zoom"}, {"dir_tests", "scaled"}};
     ASSERT_EQ(folder_config.directory_pic_options, correct);
 }
 

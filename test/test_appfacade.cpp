@@ -81,6 +81,13 @@ TEST(AppFacadeTests, ReturnCorrectCommandClosestSecondsParent)
     }
 }
 
+TEST(AppFacadeTests, ReturnCorrectCommandPictureOptions)
+{
+    AppFacade testable{"../test/resources/picture_options_config.cfg"};
+    ChangeParameters result = testable.change_wallpaper();
+    ASSERT_EQ("gsettings set org.gnome.desktop.background picture-options scaled", result.command_line_options);
+}
+
 TEST(AppFacadeTests, LogsCorrectly)
 {
     { // in a separate scope to allow for the output file to be closed

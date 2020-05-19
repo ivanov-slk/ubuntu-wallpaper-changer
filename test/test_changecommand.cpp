@@ -80,7 +80,7 @@ TEST(ChangeCommandTests, ReturnsSecondsDefault)
 TEST(ChangeCommandTests, ReturnsPictureOptions)
 {
     std::vector<std::pair<std::string, int>> change_seconds_vector{{"dir1", 10}, {"dir2", 20}, {"dir3", 5}};
-    std::map<std::string, std::string> dir_pic_options{{"exist", "scaled"}};
+    std::map<std::string, std::string> dir_pic_options{{"not", "scaled"}};
     ChangeCommand testable{"/this/path/does/not/exist/1 (2).jpg",
                            change_seconds_vector,
                            30,
