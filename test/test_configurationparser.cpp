@@ -88,6 +88,14 @@ TEST(ConfigurationParserTests, ReturnsCorrectFull)
     ASSERT_EQ(folder_config.directory_seconds, correct.directory_seconds);
 }
 
+TEST(ConfigurationParserTests, ReturnsCorrectPictureOptions)
+{
+    ConfigurationParser testable{"../test/resources/picture_options_config.cfg"}; // assumes we are in build/
+    FolderConfiguration folder_config = testable.create_configuration();
+    std::map<std::string, std::string> correct{{"dir1", "zoom"}, {"dir2", "scaled"}};
+    ASSERT_EQ(folder_config.directory_pic_options, correct);
+}
+
 TEST(ConfigurationParserTests, ThrowsExceptionOnNonexistentPath)
 {
     ConfigurationParser testable{"nonexistent/path"};
@@ -121,5 +129,11 @@ TEST(ConfigurationParserTests, ThrowsIncorrectPolicy)
 TEST(ConfigurationParserTests, ThrowsIncorrectSettingKey)
 {
     ConfigurationParser testable{"../test/resources/bad_key_config.cfg"}; // assumes we are in build/
+    ASSERT_THROW(testable.create_configuration(), ConfigurationParsingException);
+}
+
+TEST(ConfigurationParserTests, ThrowsIncorrectPictureOption)
+{
+    ConfigurationParser testable{"../test/resources/bad_picture_options_config.cfg"}; // assumes we are in build/
     ASSERT_THROW(testable.create_configuration(), ConfigurationParsingException);
 }

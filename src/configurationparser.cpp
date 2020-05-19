@@ -14,6 +14,9 @@
 /**
  * Parses a configuration file from a given file path.
  * Expects key-value pairs separated by "="; each on separate line.
+ * 
+ * TODO: this whole thing contains too much duplicated code and if-else stuff.
+ * Consider refactoring to something more reasonable.
 */
 class ConfigurationParser : public ConfigurationParserInterface
 {
@@ -129,6 +132,45 @@ private:
     }
 
     /**
+     * @brief Parses string:string key-value pairs.
+     * 
+     * @param std::string_view rhs
+     * @returns std::vector<std::pair<std::string, int>> A vector of pairs,
+     * where the first element is a directory name and the second element is
+     * some directory property (seconds or priority up to this point). The
+     * vector is sorted by the second elements in the pairs.
+     * 
+     * Expects the key-value pairs (e.g. the folder:priority pairs) be
+     * separated by comma.
+     */
+    std::map<std::string, std::string> parse_pic_options(std::string rhs)
+    {
+        std::vector<std::string> allowed_values{
+            "none", "wallpaper", "centered", "scaled", "stretched", "zoom", "spanned"};
+        std::map<std::string, std::string> map_out;
+        replace(rhs.begin(), rhs.end(), ',', ' ');
+        std::istringstream ss(rhs);
+        std::string token;
+        while (getline(ss, token, ' '))
+        {
+            std::string dir;
+            std::string pic_option;
+            replace(token.begin(), token.end(), ':', ' ');
+            std::istringstream token_ss(token);
+            token_ss >> dir >> pic_option;
+            if (std::find(allowed_values.begin(), allowed_values.end(), pic_option) != allowed_values.end())
+            {
+                map_out[dir] = pic_option;
+            }
+            else
+            {
+                throw ConfigurationParsingException{"Invalid picture-options value."};
+            }
+        }
+        return map_out;
+    }
+
+    /**
      * @brief Parses a line given its key's name.
      * 
      * @param std::string key - the left-hand side of the "=";
@@ -163,6 +205,10 @@ private:
         else if (key == "directory_seconds")
         {
             config_parsed.directory_seconds = parse_string_int_pairs(value);
+        }
+        else if (key == "directory_pic_options")
+        {
+            config_parsed.directory_pic_options = parse_pic_options(value);
         }
         else
         {

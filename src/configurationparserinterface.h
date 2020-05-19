@@ -11,6 +11,7 @@ struct FolderConfiguration
     std::vector<std::string> file_allowed_extensions;
     std::vector<std::pair<std::string, int>> directory_priorities;
     std::vector<std::pair<std::string, int>> directory_seconds;
+    std::map<std::string, std::string> directory_pic_options;
 };
 
 /**
