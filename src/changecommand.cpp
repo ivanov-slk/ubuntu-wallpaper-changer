@@ -26,7 +26,6 @@ private:
                 {
                     if (parent_dir == dir_pair.first)
                     {
-                        std::cout << "+++++++++++++++++++++++++++++++++++++" << '\n';
                         return dir_pair.second;
                     }
                 }

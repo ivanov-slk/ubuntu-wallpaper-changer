@@ -29,6 +29,23 @@ private:
      * @returns std::string
      * @throw ConfigurationParsingException
      */
+    std::string parse_policy(std::string rhs)
+    {
+        if ((rhs == "weighted") || (rhs == "uniform"))
+        {
+            return rhs;
+        }
+        throw ConfigurationParsingException("Invalid policy choice.");
+    }
+
+    /**
+     * @brief Parses a line of the form key=value, where value is path.
+     * Checks if the path exist.
+     * 
+     * @param std::string rhs - the right hand side of the "=" 
+     * @returns std::string
+     * @throw ConfigurationParsingException
+     */
     std::string parse_root_path(std::string rhs)
     {
         bool valid = std::filesystem::exists(rhs);
@@ -123,25 +140,33 @@ private:
         {
             config_parsed.path = parse_root_path(value);
         }
-        if (key == "seconds_before_change")
+        else if (key == "policy")
+        {
+            config_parsed.policy = parse_policy(value);
+        }
+        else if (key == "seconds_before_change")
         {
             config_parsed.seconds_before_change = parse_int(value);
         }
-        if (key == "directory_exclusions")
+        else if (key == "directory_exclusions")
         {
             config_parsed.directory_exclusions = parse_string_list(value);
         }
-        if (key == "file_allowed_extensions")
+        else if (key == "file_allowed_extensions")
         {
             config_parsed.file_allowed_extensions = parse_string_list(value);
         }
-        if (key == "directory_priorities")
+        else if (key == "directory_priorities")
         {
             config_parsed.directory_priorities = parse_string_int_pairs(value);
         }
-        if (key == "directory_seconds")
+        else if (key == "directory_seconds")
         {
             config_parsed.directory_seconds = parse_string_int_pairs(value);
+        }
+        else
+        {
+            throw ConfigurationParsingException{"Wrong setting key."};
         }
     };
 

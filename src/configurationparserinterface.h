@@ -5,6 +5,7 @@
 struct FolderConfiguration
 {
     std::filesystem::path path;
+    std::string policy;
     int seconds_before_change;
     std::vector<std::string> directory_exclusions;
     std::vector<std::string> file_allowed_extensions;
