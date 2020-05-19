@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 #include "test_appfacade.cpp"
-// #include "test_configurationparser.cpp"
-// #include "test_changecommand.cpp"
-// #include "test_filepicker.cpp"
-// #include "test_directory.cpp"
-// #include "test_uniformstrategy.cpp"
-// #include "test_weightedstrategy.cpp"
-// #include "test_strategycontext.cpp"
-// #include "test_logger.cpp"
+#include "test_configurationparser.cpp"
+#include "test_changecommand.cpp"
+#include "test_filepicker.cpp"
+#include "test_directory.cpp"
+#include "test_uniformstrategy.cpp"
+#include "test_weightedstrategy.cpp"
+#include "test_strategycontext.cpp"
+#include "test_logger.cpp"
 
 // TODO: this is probably not the best way to run the tests... consider refactoring.
 
