@@ -3,6 +3,8 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <sstream>
+#include <string>
 #include "commandinterface.h"
 
 class ChangeCommand : public CommandInterface
@@ -78,8 +80,9 @@ public:
         change_params.change_seconds = calculate_seconds(filename);
 
         // get the options command line, if needed
-        std::string pic_option;
-        pic_option = command_template_options + extract_picture_options(filename);
+        std::stringstream ss;
+        ss << command_template_options << extract_picture_options(filename);
+        std::string pic_option{ss.str()};
         change_params.command_line_options = pic_option;
     };
     ChangeParameters get_change() { return change_params; };
