@@ -92,6 +92,7 @@ public:
             ChangeParameters params = change_wallpaper();
             logger.log(params.command_line);
             system(params.command_line.c_str());
+            system(params.command_line_options.c_str());
             sleep(params.change_seconds);
         }
     }
