@@ -10,6 +10,7 @@ TEST(AppFacadeTests, ReturnCorrectCommand)
         "gsettings set org.gnome.desktop.background picture-uri \"file://../test/resources/dir_tests/test_dir2/random4.png\""};
 
     AppFacade testable{"../test/resources/test_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++) // kind of redundant
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -26,6 +27,7 @@ TEST(AppFacadeTests, ReturnCorrectCommandExclusions)
         "gsettings set org.gnome.desktop.background picture-uri \"file://../test/resources/dir_tests/test_dir2/random4.png\""};
 
     AppFacade testable{"../test/resources/appfacade_exclusions_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++) // kind of redundant
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -40,6 +42,7 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmptyNoAllowedExtensions)
     };
 
     AppFacade testable{"../test/resources/allowed_extensions_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++) // kind of redundant
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -54,6 +57,7 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmpty)
     };
 
     AppFacade testable{"../test/resources/empty_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++)
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -64,6 +68,7 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmpty)
 TEST(AppFacadeTests, ReturnCorrectCommandDefaultSeconds)
 {
     AppFacade testable{"../test/resources/empty_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++)
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -74,6 +79,7 @@ TEST(AppFacadeTests, ReturnCorrectCommandDefaultSeconds)
 TEST(AppFacadeTests, ReturnCorrectCommandClosestSecondsParent)
 {
     AppFacade testable{"../test/resources/appfacade_seconds_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++)
     {
         ChangeParameters result = testable.change_wallpaper();
@@ -84,7 +90,9 @@ TEST(AppFacadeTests, ReturnCorrectCommandClosestSecondsParent)
 TEST(AppFacadeTests, ReturnCorrectCommandPictureOptions)
 {
     AppFacade testable{"../test/resources/picture_options_config.cfg"};
+    testable.initialize();
     ChangeParameters result = testable.change_wallpaper();
+    std::cout << result.command_line_options << '\n';
     ASSERT_EQ("gsettings set org.gnome.desktop.background picture-options scaled", result.command_line_options);
 }
 
@@ -93,6 +101,7 @@ TEST(AppFacadeTests, LogsCorrectly)
     { // in a separate scope to allow for the output file to be closed
         // initialize logger
         AppFacade testable{"../test/resources/test_config.cfg"};
+        testable.initialize();
 
         // write a couple of lines
         testable.log("this is line 1");
@@ -133,6 +142,7 @@ TEST(AppFacadeTests, WeightedStrategyReturnsCorrect)
     };
 
     AppFacade testable{"../test/resources/empty_weighted_config.cfg"};
+    testable.initialize();
     for (int i = 0; i < 3; i++)
     {
         ChangeParameters result = testable.change_wallpaper();

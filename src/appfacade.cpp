@@ -22,8 +22,11 @@ private:
     std::unique_ptr<StrategyInterface> strategy;
 
 public:
-    AppFacade(const std::string &config_path) : config_path(config_path)
+    AppFacade(const std::string &config_path) : config_path(config_path) {}
+
+    void initialize()
     {
+
         // parse configuration
         ConfigurationParser parser{config_path};
         config = parser.create_configuration();
@@ -36,7 +39,6 @@ public:
         }
         else
         {
-        std:
             strategy = std::make_unique<WeightedStrategy>(config.directory_priorities);
             context.set_strategy(std::move(strategy));
         }
