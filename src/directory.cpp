@@ -23,6 +23,8 @@ public:
                                                              allowed_extensions(allowed_extensions){};
 
     std::filesystem::path get_root_path() { return path; }
+    std::vector<std::string> get_exclusions() { return exclusions; }
+    std::vector<std::string> get_allowed_extensions() { return allowed_extensions; }
 
     /**
      * Get all files in the directory. If `allowed_extensions` is set via

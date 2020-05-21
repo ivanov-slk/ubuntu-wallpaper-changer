@@ -183,6 +183,8 @@ public:
         {
             return root_dir.get_files();
         }
-        return execute(Directory{picked_subdir});
+        return execute(Directory{picked_subdir,
+                                 root_dir.get_exclusions(),
+                                 root_dir.get_allowed_extensions()});
     }
 };

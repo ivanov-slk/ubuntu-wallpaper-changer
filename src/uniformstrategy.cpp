@@ -16,7 +16,11 @@ private:
         std::vector<std::filesystem::path> all_subdirs = root_dir.get_subdirs();
         for (auto &sub_dir : all_subdirs)
         {
-            std::vector<std::filesystem::path> subdir_files = traverse_get_files(Directory{sub_dir});
+            std::vector<std::filesystem::path> subdir_files =
+                traverse_get_files(Directory{sub_dir,
+                                             root_dir.get_exclusions(),
+                                             root_dir.get_allowed_extensions()});
+
             all_files.reserve(all_files.size() + subdir_files.size());
             all_files.insert(all_files.end(), subdir_files.begin(), subdir_files.end());
         }
