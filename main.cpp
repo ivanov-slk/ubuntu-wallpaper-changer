@@ -17,6 +17,21 @@ int main()
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
     AppFacade wallpaper_changer{"./config.cfg"};
-    wallpaper_changer.start();
+    try
+    {
+        wallpaper_changer.initialize();
+        wallpaper_changer.start();
+    }
+    catch (const std::exception &exc)
+    {
+        wallpaper_changer.log("=============== Exception caught. ===============");
+        wallpaper_changer.log(exc.what());
+        throw;
+    }
+    catch (...)
+    {
+        wallpaper_changer.log("========== Unknown exception caught. ==========");
+        throw;
+    }
     return 0;
 }

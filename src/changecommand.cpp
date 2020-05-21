@@ -10,7 +10,7 @@
 class ChangeCommand : public CommandInterface
 {
 private:
-    std::string filename;
+    const std::string filename;
     std::string command_template = "gsettings set org.gnome.desktop.background picture-uri ";
     std::string command_template_options = "gsettings set org.gnome.desktop.background picture-options ";
     std::string command_line;
@@ -20,7 +20,7 @@ private:
     ChangeParameters change_params;
 
     // TODO: the below two methods contain similar code. Consider refactoring.
-    int calculate_seconds(std::string check_path)
+    int calculate_seconds()
     {
         if (!dir_seconds.empty())
         {
@@ -41,7 +41,7 @@ private:
         return default_seconds;
     }
 
-    std::string extract_picture_options(std::string check_path)
+    std::string extract_picture_options()
     {
         if (!directory_pic_options.empty())
         {
@@ -49,8 +49,7 @@ private:
             while (check_path != check_path.root_path())
             {
                 std::string parent_dir = check_path.filename();
-
-                if (directory_pic_options.count(parent_dir) > 0)
+                if (directory_pic_options.count(parent_dir) == 1)
                 {
                     return directory_pic_options.at(parent_dir);
                 }
@@ -77,11 +76,11 @@ public:
         change_params.command_line = command_line;
 
         // get the change seconds
-        change_params.change_seconds = calculate_seconds(filename);
+        change_params.change_seconds = calculate_seconds();
 
         // get the options command line, if needed
         std::stringstream ss;
-        ss << command_template_options << extract_picture_options(filename);
+        ss << command_template_options << extract_picture_options();
         std::string pic_option{ss.str()};
         change_params.command_line_options = pic_option;
     };
