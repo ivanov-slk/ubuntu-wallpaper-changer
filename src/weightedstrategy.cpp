@@ -15,13 +15,13 @@ private:
     std::vector<std::pair<std::filesystem::path, int>> directory_priorities;
 
 public:
-    WeightedStrategy(const std::vector<std::pair<std::filesystem::path, int>> &directory_priorities)
-        : directory_priorities(directory_priorities) {}
+    WeightedStrategy(const std::vector<std::pair<std::filesystem::path, int>> &directory_priorities_input)
+        : directory_priorities(directory_priorities_input) {}
     WeightedStrategy(const std::vector<std::pair<std::string, int>> &directory_priorities_input)
     {
         // this convertion may be too explicit
         std::vector<std::pair<std::filesystem::path, int>> converted_priorities;
-        for (auto &dir_pair : directory_priorities)
+        for (auto &dir_pair : directory_priorities_input)
         {
             converted_priorities.push_back({std::filesystem::path{dir_pair.first}, dir_pair.second});
         }
@@ -42,6 +42,13 @@ public:
     std::vector<std::pair<std::filesystem::path, int>>
     create_subdirs_with_priorities(std::vector<std::filesystem::path> subdirs)
     {
+        std::cout << "input prior ========================================" << '\n';
+        for (auto p : directory_priorities)
+        {
+            std::cout << p.first << p.second << '\n';
+        }
+        std::cout << "end input prior ========================================"
+                  << "\n\n";
         std::vector<std::pair<std::filesystem::path, int>> subdirs_with_priorities;
         for (std::filesystem::path &subdir : subdirs)
         {
@@ -65,6 +72,13 @@ public:
         std::sort(subdirs_with_priorities.begin(),
                   subdirs_with_priorities.end(),
                   [](auto &left, auto &right) { return left.second < right.second; });
+        std::cout << "subdir ========================================" << '\n';
+        for (auto p : subdirs_with_priorities)
+        {
+            std::cout << p.first << p.second << '\n';
+        }
+        std::cout << "end subdir ========================================"
+                  << "\n\n";
         return subdirs_with_priorities;
     }
 
@@ -114,6 +128,14 @@ public:
                             const std::pair<std::filesystem::path, float> &y) {
                              return std::pair<std::filesystem::path, float>{y.first, x.second + y.second};
                          });
+
+        std::cout << "norm prior ========================================" << '\n';
+        for (auto p : normalized_priorities)
+        {
+            std::cout << p.first << p.second << '\n';
+        }
+        std::cout << "end norm prior ========================================"
+                  << "\n\n";
         return normalized_priorities;
     }
 

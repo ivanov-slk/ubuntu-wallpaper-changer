@@ -39,6 +39,11 @@ public:
         }
         else
         {
+            // std::cout << "--------------------------------------------" << '\n';
+            // for (auto p : config.directory_priorities)
+            // {
+            //     std::cout << p.first << p.second << '\n';
+            // }
             strategy = std::make_unique<WeightedStrategy>(config.directory_priorities);
             context.set_strategy(std::move(strategy));
         }
