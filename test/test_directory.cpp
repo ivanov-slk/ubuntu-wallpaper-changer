@@ -19,9 +19,9 @@ TEST(DirectoryTests, ReturnsDirectories)
          * Here, it is not a problem, since alphabetical order does not
          * matter, but consider sorting if needed.
          */
-        "../test/resources/dir_tests/test_dir3",
+        "../test/resources/dir_tests/test_dir2",
         "../test/resources/dir_tests/test_dir1",
-        "../test/resources/dir_tests/test_dir2"};
+        "../test/resources/dir_tests/test_dir3"};
     ASSERT_TRUE(result == correct);
 }
 
@@ -37,8 +37,8 @@ TEST(DirectoryTests, ReturnsDirectoriesWithExclusions)
          * Here, it is not a problem, since alphabetical order does not
          * matter, but consider sorting if needed.
          */
-        "../test/resources/dir_tests/test_dir1",
-        "../test/resources/dir_tests/test_dir2"};
+        "../test/resources/dir_tests/test_dir2",
+        "../test/resources/dir_tests/test_dir1"};
     ASSERT_TRUE(result == correct);
 }
 

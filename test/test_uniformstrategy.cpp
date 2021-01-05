@@ -24,6 +24,8 @@ TEST(UniformStrategyTests, ReturnsAllFiles)
         "../test/resources/dir_tests/test_dir2/random1.png"};
     UniformStrategy testable;
     std::vector<std::filesystem::path> result = testable.execute(Directory("../test/resources/dir_tests"));
+    std::sort(result.begin(), result.end(), std::greater<std::filesystem::path>());
+    std::sort(correct.begin(), correct.end(), std::greater<std::filesystem::path>()); // lazyness...
     ASSERT_TRUE(result == correct);
 }
 
@@ -50,7 +52,10 @@ TEST(UniformStrategyTests, ReturnsCache)
         "../test/resources/dir_tests/test_dir2/random1.png"};
     UniformStrategy testable;
     std::vector<std::filesystem::path> result = testable.execute(Directory("../test/resources/dir_tests"));
+    std::sort(result.begin(), result.end(), std::greater<std::filesystem::path>());
     std::vector<std::filesystem::path> cache = testable.execute(Directory("../test/resources/dir_tests"));
+    std::sort(cache.begin(), cache.end(), std::greater<std::filesystem::path>());
+    std::sort(correct.begin(), correct.end(), std::greater<std::filesystem::path>()); // lazyness...
     ASSERT_TRUE(result == cache);
     ASSERT_TRUE(cache == correct);
     ASSERT_TRUE(result == correct);

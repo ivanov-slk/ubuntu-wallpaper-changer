@@ -141,6 +141,10 @@ TEST(WeightedStrategyTests, ReturnsAllFiles)
     std::vector<std::filesystem::path> result = testable.execute(Directory("../test/resources/dir_tests/test_dir3"));
 
     // result should be the files in one of the three vectors
+    std::sort(result.begin(), result.end(), std::greater<std::filesystem::path>());
+    std::sort(correct1.begin(), correct1.end(), std::greater<std::filesystem::path>()); // lazyness...
+    std::sort(correct2.begin(), correct2.end(), std::greater<std::filesystem::path>());
+    std::sort(correct3.begin(), correct3.end(), std::greater<std::filesystem::path>());
     ASSERT_TRUE((result == correct1) || (result == correct2) || (result == correct3));
 }
 
