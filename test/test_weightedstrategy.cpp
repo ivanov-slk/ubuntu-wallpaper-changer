@@ -3,6 +3,8 @@
  * 1. create_subdirs_with_priorities():
  * - test overlap with directory_priorities;
  * - test no overlap with directory_priorities;
+ * - test partial overlap with directory priorities;
+ * - test partial overlap with directory priorities and space in directory names
  * - test empty directory_priorities;
  * - test no subdirectories;
  * 2. normalize_priorities():
@@ -42,6 +44,32 @@ TEST(WeightedStrategyTests, SubdirsNoOverlap) {
       {"/path/other_dir1", 1},
       {"/path/other_dir2", 1},
       {"/path/other_dir3", 1}};
+  WeightedStrategy testable{input_dir_priorities};
+  std::vector<std::pair<std::filesystem::path, int>> result =
+      testable.create_subdirs_with_priorities(test_input);
+  ASSERT_TRUE(result == correct);
+}
+
+TEST(WeightedStrategyTests, SubdirsPartialOverlap) {
+  std::vector<std::pair<std::filesystem::path, int>> input_dir_priorities{
+      {"nosuchdir1", 1}, {"nosuchdir2", 2}, {"dir3", 3}};
+  std::vector<std::filesystem::path> test_input{"/path/dir1", "/path/dir2",
+                                                "/path/dir3"};
+  std::vector<std::pair<std::filesystem::path, int>> correct{
+      {"/path/dir1", 1}, {"/path/dir2", 1}, {"/path/dir3", 3}};
+  WeightedStrategy testable{input_dir_priorities};
+  std::vector<std::pair<std::filesystem::path, int>> result =
+      testable.create_subdirs_with_priorities(test_input);
+  ASSERT_TRUE(result == correct);
+}
+
+TEST(WeightedStrategyTests, SubdirsPartialOverlapSpaceInName) {
+  std::vector<std::pair<std::filesystem::path, int>> input_dir_priorities{
+      {"nosuchdir1", 1}, {"nosuchdir 2", 2}, {"dir 3", 3}};
+  std::vector<std::filesystem::path> test_input{"/path/dir1", "/path/dir2",
+                                                "/path/dir 3"};
+  std::vector<std::pair<std::filesystem::path, int>> correct{
+      {"/path/dir1", 1}, {"/path/dir2", 1}, {"/path/dir 3", 3}};
   WeightedStrategy testable{input_dir_priorities};
   std::vector<std::pair<std::filesystem::path, int>> result =
       testable.create_subdirs_with_priorities(test_input);
@@ -215,17 +243,17 @@ TEST(WeightedStrategyTests, RecursionWorks) {
   std::vector<std::pair<std::filesystem::path, int>> input_dir_priorities;
   WeightedStrategy testable{input_dir_priorities};
   int number_of_empty_dir_hits = 0;
-  for (int i = 0; i < 10; i++)  // ensure we don't hit "empty_dir" accidentally
-  {
-    std::vector<std::filesystem::path> result =
-        testable.execute(Directory("../test/resources/dir_tests"));
-    if (!result.empty()) {
-      ASSERT_TRUE(std::find(correct.begin(), correct.end(), result[0]) !=
-                  correct.end());
-    } else {
-      number_of_empty_dir_hits++;
+  for (int i = 0; i < 10; i++)  // ensure we don't hit "empty_dir"
+    accidentally {
+      std::vector<std::filesystem::path> result =
+          testable.execute(Directory("../test/resources/dir_tests"));
+      if (!result.empty()) {
+        ASSERT_TRUE(std::find(correct.begin(), correct.end(), result[0]) !=
+                    correct.end());
+      } else {
+        number_of_empty_dir_hits++;
+      }
     }
-  }
   // Seems pretty improbable to hit empty_dir 10 times in a row, eh?
   ASSERT_TRUE(number_of_empty_dir_hits < 10);
 }
