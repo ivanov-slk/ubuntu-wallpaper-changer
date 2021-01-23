@@ -243,17 +243,17 @@ TEST(WeightedStrategyTests, RecursionWorks) {
   std::vector<std::pair<std::filesystem::path, int>> input_dir_priorities;
   WeightedStrategy testable{input_dir_priorities};
   int number_of_empty_dir_hits = 0;
-  for (int i = 0; i < 10; i++)  // ensure we don't hit "empty_dir"
-    accidentally {
-      std::vector<std::filesystem::path> result =
-          testable.execute(Directory("../test/resources/dir_tests"));
-      if (!result.empty()) {
-        ASSERT_TRUE(std::find(correct.begin(), correct.end(), result[0]) !=
-                    correct.end());
-      } else {
-        number_of_empty_dir_hits++;
-      }
+  for (int i = 0; i < 10; i++)  // ensure we don't hit "empty_dir" accidentally
+  {
+    std::vector<std::filesystem::path> result =
+        testable.execute(Directory("../test/resources/dir_tests"));
+    if (!result.empty()) {
+      ASSERT_TRUE(std::find(correct.begin(), correct.end(), result[0]) !=
+                  correct.end());
+    } else {
+      number_of_empty_dir_hits++;
     }
+  }
   // Seems pretty improbable to hit empty_dir 10 times in a row, eh?
   ASSERT_TRUE(number_of_empty_dir_hits < 10);
 }
