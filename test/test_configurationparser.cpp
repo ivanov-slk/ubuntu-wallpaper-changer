@@ -57,6 +57,16 @@ TEST(ConfigurationParserTests, ReturnsCorrectPriorities) {
   ASSERT_EQ(folder_config.directory_priorities, correct);
 }
 
+TEST(ConfigurationParserTests, ReturnsCorrectPrioritiesWithSpaces) {
+  ConfigurationParser testable{
+      "../test/resources/priorities_config_with_spaces.cfg"};  // assumes we are
+                                                               // in build/
+  FolderConfiguration folder_config = testable.create_configuration();
+  std::vector<std::pair<std::string, int>> correct{
+      {"folder2", 5}, {"folder 3", 10}, {"folder1", 16}};
+  ASSERT_EQ(folder_config.directory_priorities, correct);
+}
+
 TEST(ConfigurationParserTests, ReturnsCorrectSeconds) {
   ConfigurationParser testable{
       "../test/resources/seconds_config.cfg"};  // assumes we are in build/
