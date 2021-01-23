@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <regex>
 #include <sstream>
 #include <string>
 
@@ -102,18 +103,26 @@ class ConfigurationParser : public ConfigurationParserInterface {
   std::vector<std::pair<std::string, int>> parse_string_int_pairs(
       std::string rhs) {
     std::vector<std::pair<std::string, int>> vec_pairs;
-    replace(rhs.begin(), rhs.end(), ',', ' ');
+    // replace(rhs.begin(), rhs.end(), ',', ' ');
     std::istringstream ss(rhs);
-    std::string token;
-    while (getline(ss, token, ' ')) {
+    std::string token_comma;
+    while (getline(ss, token_comma, ',')) {
       std::string pair_first;
       std::string pair_second;
       int pair_second_parsed;
-      replace(token.begin(), token.end(), ':', ' ');
-      std::istringstream token_ss(token);
-      token_ss >> pair_first >> pair_second;
-      pair_second_parsed = parse_int(pair_second);
-      std::pair<std::string, int> vec_element{pair_first, pair_second_parsed};
+      // replace(token_comma.begin(), token_comma.end(), ':', ' ');
+      std::istringstream token_comma_ss(token_comma);
+      std::vector<std::string> token_list_colon;
+      std::string token_colon;
+      while (getline(token_comma_ss, token_colon, ':')) {
+        token_colon =
+            std::regex_replace(token_colon, std::regex("^ +| +$|( ) +"), "$1");
+        token_list_colon.push_back(token_colon);
+      }
+      // token_ss >> pair_first >> pair_second;
+      // pair_second_parsed = parse_int(token_list_colon.at(1));
+      std::pair<std::string, int> vec_element{
+          token_list_colon.at(0), parse_int(token_list_colon.at(1))};
       vec_pairs.push_back(vec_element);
     }
     std::sort(vec_pairs.begin(), vec_pairs.end(), [](auto &left, auto &right) {
@@ -139,15 +148,27 @@ class ConfigurationParser : public ConfigurationParserInterface {
                                             "scaled", "stretched", "zoom",
                                             "spanned"};
     std::map<std::string, std::string> map_out;
-    replace(rhs.begin(), rhs.end(), ',', ' ');
+    // replace(rhs.begin(), rhs.end(), ',', ' ');
     std::istringstream ss(rhs);
-    std::string token;
-    while (getline(ss, token, ' ')) {
+    std::vector<std::string> token_list_comma;
+    std::string token_comma;
+    while (getline(ss, token_comma, ',')) {
+      token_comma =
+          std::regex_replace(token_comma, std::regex("^ +| +$|( ) +"), "$1");
       std::string dir;
       std::string pic_option;
-      replace(token.begin(), token.end(), ':', ' ');
-      std::istringstream token_ss(token);
-      token_ss >> dir >> pic_option;
+      // replace(token.begin(), token.end(), ':', ' ');
+      std::vector<std::string> token_list_colon;
+      std::string token_colon;
+      std::istringstream token_comma_ss(token_comma);
+      while (getline(token_comma_ss, token_colon, ':')) {
+        token_colon =
+            std::regex_replace(token_colon, std::regex("^ +| +$|( ) +"), "$1");
+        token_list_colon.push_back(token_colon);
+      }
+      // token_ss >> dir >> pic_option;
+      dir = token_list_colon.at(0);
+      pic_option = token_list_colon.at(1);
       if (std::find(allowed_values.begin(), allowed_values.end(), pic_option) !=
           allowed_values.end()) {
         map_out[dir] = pic_option;
@@ -208,14 +229,24 @@ class ConfigurationParser : public ConfigurationParserInterface {
     std::string line;
     while (config_file.good()) {
       getline(config_file, line);
-      line.erase(std::remove_if(line.begin(), line.end(), ::isspace),
-                 line.end());
+      // line.erase(std::remove_if(line.begin(), line.end(), ::isspace),
+      //  line.end());
       if (line[0] == '#' || line.empty()) continue;
 
-      replace(line.begin(), line.end(), '=', ' ');
+      // replace(line.begin(), line.end(), '=', ' ');
       std::istringstream ss(line);
-      ss >> key >> value;
-      parse_line(key, value);
+      std::vector<std::string> split_line;
+      std::string line_token;
+      while (std::getline(ss, line_token, '=')) {
+        // line_token.erase(
+        //     std::remove_if(line_token.begin(), line_token.end(), ::isspace),
+        //     line_token.end());
+        line_token =
+            std::regex_replace(line_token, std::regex("^ +| +$|( ) +"), "$1");
+        split_line.push_back(line_token);
+      };
+      // ss >> key >> value;
+      parse_line(split_line.at(0), split_line.at(1));
     }
   };
 
