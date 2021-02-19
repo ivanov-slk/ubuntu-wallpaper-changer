@@ -1,2 +1,3 @@
-# ubuntu-wallpaper-changer
+### ubuntu-wallpaper-changer
 A simple wallpaper changer for Ubuntu.
+
