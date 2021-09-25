@@ -41,7 +41,7 @@ class AppFacade {
   };
 
   /**
-   * Execute the strategy-related directory traversal.
+   * Executes the strategy-related directory traversal.
    * @param FolderConfiguration - the parsed configuration.
    *
    * @returns std::vector<std::filesystem::path> - a (potentially empty) vector
