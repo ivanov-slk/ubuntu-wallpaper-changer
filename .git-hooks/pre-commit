@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -48,11 +48,11 @@ fi
 # # If there are whitespace errors, print the offending file names and fail.
 # exec git diff-index --check --cached $against --
 
-echo "PRE-COMMIT HOOK: Starting..."
+echo -e "\n$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [PRE-COMMIT HOOK] Starting..."
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd ${DIR}/.git-hooks
-echo "PRE-COMMIT HOOK: in "$(pwd)
+cd ${DIR}
+echo "$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [PRE-COMMIT HOOK] in $(pwd)"
 bash run_build.sh
 build_code=$?
-echo "PRE-COMMIT HOOK: exit code is "${build_code}
+echo -e "$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [PRE-COMMIT HOOK] Finished with exit code ${build_code}\n"
 exit ${build_code} # explicit
