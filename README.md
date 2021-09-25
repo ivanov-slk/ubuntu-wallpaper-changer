@@ -5,7 +5,7 @@ A simple wallpaper changer for Ubuntu that chooses a wallpaper based on configur
 Just run `mkdir ./build; bash ./.git-hooks/run_build.sh`. 
 This will compile the source code and run all tests. An executable will be created in `./build` directory.
 
-Tested on Ubuntu 18.04 and 20.04; `cmake`: 3.16.3; `make`: 4.2.1; `gcc`: 9.3.0.
+Tested on Ubuntu 18.04 and 20.04; `cmake`: 3.16.3; `make`: 4.2.1; `gcc`: 9.3.0 and `gcc`: 10.3.0.
 
 ## Configure
 A configuration file `config.cfg` must be create in the same directory as the executable. It should look like this:
