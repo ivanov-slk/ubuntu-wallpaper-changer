@@ -9,7 +9,7 @@ echo "$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [BUILD] in $(pwd)"
 # rm -r *
 
 echo "$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [BUILD] Compiling..."
-cmake -D CMAKE_C_COMPILER=/usr/bin/gcc-10 -D CMAKE_CXX_COMPILER=/usr/bin/g++-10 ..
+cmake -D CMAKE_C_COMPILER=/usr/bin/gcc-12 -D CMAKE_CXX_COMPILER=/usr/bin/g++-12 ..
 make -j 3
 echo -e "\n$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [BUILD] Running tests..."
 test/run_tests
