@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check that tag is updated.
+      - name: Compile and run tests.
         run: bash .git-hooks/run_build.sh
