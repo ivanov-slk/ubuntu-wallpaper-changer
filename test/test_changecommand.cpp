@@ -7,7 +7,7 @@ TEST(ChangeCommandTests, ReturnsEmpty) {
   testable.execute();
   ChangeParameters result = testable.get_change();
   ASSERT_EQ(
-      "gsettings set org.gnome.desktop.background picture-uri \"file://\"",
+      "gsettings set org.gnome.desktop.background picture-uri-dark \"file://\"",
       result.command_line);
 }
 
@@ -16,7 +16,7 @@ TEST(ChangeCommandTests, ReturnsCommand1) {
   testable.execute();
   ChangeParameters result = testable.get_change();
   ASSERT_EQ(
-      "gsettings set org.gnome.desktop.background picture-uri \"file://path\"",
+      "gsettings set org.gnome.desktop.background picture-uri-dark \"file://path\"",
       result.command_line);
 }
 
@@ -25,7 +25,7 @@ TEST(ChangeCommandTests, ReturnsCommand2) {
   testable.execute();
   ChangeParameters result = testable.get_change();
   ASSERT_EQ(
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file:///this/path/does/not/exist/1 (2).jpg\"",
       result.command_line);
 }

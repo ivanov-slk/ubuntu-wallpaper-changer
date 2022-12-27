@@ -4,13 +4,13 @@
 
 TEST(AppFacadeTests, ReturnCorrectCommand) {
   std::vector<std::string> correct_commands{
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random1.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random2.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random3.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random4.png\""};
 
   AppFacade testable{"../test/resources/test_config.cfg"};
@@ -25,13 +25,13 @@ TEST(AppFacadeTests, ReturnCorrectCommand) {
 
 TEST(AppFacadeTests, ReturnCorrectCommandExclusions) {
   std::vector<std::string> correct_commands{
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random1.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random2.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random3.png\"",
-      "gsettings set org.gnome.desktop.background picture-uri "
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
       "\"file://../test/resources/dir_tests/test_dir2/random4.png\""};
 
   AppFacade testable{"../test/resources/appfacade_exclusions_config.cfg"};
@@ -46,7 +46,8 @@ TEST(AppFacadeTests, ReturnCorrectCommandExclusions) {
 
 TEST(AppFacadeTests, ReturnCorrectCommandEmptyNoAllowedExtensions) {
   std::vector<std::string> correct_commands{
-      "gsettings set org.gnome.desktop.background picture-uri \"file://\"",
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
+      "\"file://\"",
   };
 
   AppFacade testable{"../test/resources/allowed_extensions_config.cfg"};
@@ -61,7 +62,8 @@ TEST(AppFacadeTests, ReturnCorrectCommandEmptyNoAllowedExtensions) {
 
 TEST(AppFacadeTests, ReturnCorrectCommandEmpty) {
   std::vector<std::string> correct_commands{
-      "gsettings set org.gnome.desktop.background picture-uri \"file://\"",
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
+      "\"file://\"",
   };
 
   AppFacade testable{"../test/resources/empty_config.cfg"};
@@ -136,7 +138,8 @@ TEST(AppFacadeTests, LogsCorrectly) {
 
 TEST(AppFacadeTests, WeightedStrategyReturnsCorrect) {
   std::vector<std::string> correct_commands{
-      "gsettings set org.gnome.desktop.background picture-uri \"file://\"",
+      "gsettings set org.gnome.desktop.background picture-uri-dark "
+      "\"file://\"",
   };
 
   AppFacade testable{"../test/resources/empty_weighted_config.cfg"};
