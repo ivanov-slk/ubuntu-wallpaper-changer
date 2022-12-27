@@ -12,7 +12,7 @@ class ChangeCommand : public CommandInterface {
  private:
   const std::string filename;
   std::string command_template =
-      "gsettings set org.gnome.desktop.background picture-uri ";
+      "gsettings set org.gnome.desktop.background picture-uri-dark ";
   std::string command_template_options =
       "gsettings set org.gnome.desktop.background picture-options ";
   std::string command_line;
@@ -27,7 +27,7 @@ class ChangeCommand : public CommandInterface {
       std::filesystem::path check_path{filename};
       while (check_path != check_path.root_path()) {
         std::string parent_dir = check_path.filename();
-        for (const std::pair<std::string, int> &dir_pair : dir_seconds) {
+        for (const std::pair<std::string, int>& dir_pair : dir_seconds) {
           if (parent_dir == dir_pair.first) {
             return dir_pair.second;
           }
@@ -54,11 +54,11 @@ class ChangeCommand : public CommandInterface {
 
  public:
   ChangeCommand() = default;
-  ChangeCommand(const std::string &filename) : filename(filename){};
-  ChangeCommand(const std::string &filename,
-                const std::vector<std::pair<std::string, int>> &dir_seconds,
+  ChangeCommand(const std::string& filename) : filename(filename){};
+  ChangeCommand(const std::string& filename,
+                const std::vector<std::pair<std::string, int>>& dir_seconds,
                 int default_seconds,
-                const std::map<std::string, std::string> &dir_pic_options)
+                const std::map<std::string, std::string>& dir_pic_options)
       : filename(filename),
         dir_seconds(dir_seconds),
         default_seconds(default_seconds),

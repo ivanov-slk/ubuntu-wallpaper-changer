@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(UbuntuWallpaperChanger, VERSION 1.0.0)
+project(UbuntuWallpaperChanger, VERSION 1.1.0)
 
 configure_file(ubuntu_wallpaper_changer_config.h.in ubuntu_wallpaper_changer.h)
  
