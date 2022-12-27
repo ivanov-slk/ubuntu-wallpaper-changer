@@ -13,16 +13,16 @@ add_subdirectory(src)
 list(APPEND EXTRA_LIBS src)
 list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/src")
 
+# Configure GoogleTest
 include(FetchContent)
 FetchContent_Declare(
   googletest
   # Specify the commit you depend on and update it regularly.
   URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
 )
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+# Configure the tests suite and executables
 add_subdirectory(test)
 
 target_link_libraries(ubuntu_wallpaper_changer PUBLIC ${EXTRA_LIBS})

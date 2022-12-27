@@ -1,0 +1,16 @@
+name: compile-and-test
+
+on:
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile and run tests.
+        run: bash .git-hooks/run_build.sh
