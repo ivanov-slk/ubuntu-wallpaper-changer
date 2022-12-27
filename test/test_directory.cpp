@@ -26,6 +26,10 @@ TEST(DirectoryTests, ReturnsDirectories)
       "../test/resources/dir_tests/test_dir1",
       "../test/resources/dir_tests/test_dir2",
       "../test/resources/dir_tests/test_dir3"};
+  for (auto el : result)
+  {
+    std::cout << el << '\n';
+  }
   ASSERT_TRUE(result == correct);
 }
 
@@ -44,6 +48,10 @@ TEST(DirectoryTests, ReturnsDirectoriesWithExclusions)
        */
       "../test/resources/dir_tests/test_dir1",
       "../test/resources/dir_tests/test_dir2"};
+  for (auto el : result)
+  {
+    std::cout << el << '\n';
+  }
   ASSERT_TRUE(result == correct);
 }
 
@@ -73,6 +81,10 @@ TEST(DirectoryTests, ReturnsFiles)
       "../test/resources/dir_tests/file3.jpeg",
       "../test/resources/dir_tests/file4.txt",
       "../test/resources/dir_tests/file1.txt"};
+  for (auto el : result)
+  {
+    std::cout << el << '\n';
+  }
   ASSERT_TRUE(result == correct);
 }
 
