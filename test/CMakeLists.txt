@@ -3,6 +3,7 @@ add_executable(run_tests test_all.cpp)
 target_link_libraries(
   run_tests
   GTest::gtest_main
+  GTest::gmock_main
 )
 
 # Execute the tests
