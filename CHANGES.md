@@ -2,6 +2,14 @@
 
 ---
 
+# v1.1.0
+
+### New
+
+- Switch to GNOME dar theme.
+
+---
+
 # v1.0.0
 
 ### New
