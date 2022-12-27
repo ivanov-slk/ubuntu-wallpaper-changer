@@ -1,0 +1,16 @@
+name: version-tag-check
+
+on:
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check that tag is updated.
+        run: bash .git-hooks/run_build.sh
