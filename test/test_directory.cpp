@@ -1,4 +1,5 @@
-#include <gtest/gtest.h>
+// #include <gtest/gtest.h>
+// #include <gmock/gmock.h>
 
 #include "../src/directory.cpp"
 
@@ -30,7 +31,7 @@ TEST(DirectoryTests, ReturnsDirectories)
   {
     std::cout << el << '\n';
   }
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsDirectoriesWithExclusions)
@@ -48,11 +49,7 @@ TEST(DirectoryTests, ReturnsDirectoriesWithExclusions)
        */
       "../test/resources/dir_tests/test_dir1",
       "../test/resources/dir_tests/test_dir2"};
-  for (auto el : result)
-  {
-    std::cout << el << '\n';
-  }
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsDirectoriesWithExclusionsEmpty)
@@ -85,7 +82,7 @@ TEST(DirectoryTests, ReturnsFiles)
   {
     std::cout << el << '\n';
   }
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsFilesAllowedExtensions)
@@ -104,7 +101,7 @@ TEST(DirectoryTests, ReturnsFilesAllowedExtensions)
       "../test/resources/dir_tests/file2.png",
       "../test/resources/dir_tests/file3.jpeg",
   };
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsFilesAllowedExtensionsEmpty)
@@ -115,7 +112,7 @@ TEST(DirectoryTests, ReturnsFilesAllowedExtensionsEmpty)
                      allowed_extensions}; // assumes we are in build/
   std::vector<std::filesystem::path> result = testable.get_files();
   std::vector<std::filesystem::path> correct;
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsEmptyNoFiles)
@@ -125,7 +122,7 @@ TEST(DirectoryTests, ReturnsEmptyNoFiles)
                                                           // build/
   std::vector<std::filesystem::path> result = testable.get_files();
   std::vector<std::filesystem::path> correct;
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
 
 TEST(DirectoryTests, ReturnsEmptyNoDirs)
@@ -135,5 +132,5 @@ TEST(DirectoryTests, ReturnsEmptyNoDirs)
                                                         // build/
   std::vector<std::filesystem::path> result = testable.get_subdirs();
   std::vector<std::filesystem::path> correct;
-  ASSERT_TRUE(result == correct);
+  ASSERT_THAT(result, testing::UnorderedElementsAreArray(correct));
 }
