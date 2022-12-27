@@ -1,4 +1,4 @@
-name: version-tag-check
+name: compile-and-test
 
 on:
   pull_request:
