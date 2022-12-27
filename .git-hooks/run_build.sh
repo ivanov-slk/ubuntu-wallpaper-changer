@@ -5,7 +5,7 @@ set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "$(printf '%(%Y-%m-%d %H:%M:%S)T\n' -1) [BUILD] Currently in $DIR."
-mkdir -p ../test/resources/dir_tests/test_dir2/empty_dir
+mkdir -p "${DIR}/../test/resources/dir_tests/test_dir2/empty_dir"
 BUILD_DIR="${DIR}/../build"
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
